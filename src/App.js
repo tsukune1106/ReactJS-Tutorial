@@ -1,23 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import Home from './components/Home/Home';
+import Navbar from './components/Navbar';
 
 function App() {
+  // const title = 'Welcome to the new blog';
+  // const likes = 50;
+  // const person = { name: 'yoshi', age: 30 };
+
+  // reason of using "className" in html due to class is a reserved keyword in javascript
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar />
+      <div className="content">
+        <Home />
+
+        {/* <h1>{title}</h1>
+        <p>Like {likes} times</p>
+
+        input object will give error
+        e.g. {person} will give error since person is an object
+        <p>person: {person.name}</p>
+
+        all output will be converted into string
+        <p>{[1, 2, 3, 4, 5]}</p> */}
+      </div>
     </div>
   );
 }
