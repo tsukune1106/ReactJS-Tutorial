@@ -68,3 +68,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+### `npx json-server --watch data/db.json --port 8000`
+
+This command is used to create a fake server/database to connect, with watch and port option.
+The reason why using port 8000 is because it will be using same port as front-end if not specify
