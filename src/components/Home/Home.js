@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import BlogList from '../BlogList';
 
 const Home = () => {
@@ -26,6 +26,37 @@ const Home = () => {
         console.log('hello, ' + name + ', ', e);
     }
 
+    /* passing function as a prop into BlogList component */
+    const handleDelete = (id) => {
+        const newBlogs = blogs.filter(blog => blog.id !== id);
+        setBlogs(newBlogs);
+    }
+
+    /* this function is invoked each time dom render or state changes that caused dom to render */
+    /* is useful when something need to be run every re-render */
+    // useEffect(() => {
+    //     console.log('use effect ran')
+    // });
+
+    /* useEffect dependencies */
+    /* an empty array is added to indicate useEffect to only run once which is when the dom is firstly rendered */
+    /* is used to if only need to run once when it rendered */
+    // useEffect(() => {
+    //     console.log('use effect ran')
+    // }, []);    
+
+    /* state function is added into array to indicate which state function invoked will also invoked useEffect */
+    /* this means that useEffect will only be invoked: */
+    /* 1: first time the dom rendered */
+    /* 2: state function is invoked if is included into useEffect dependencies (only if the value is changes, such as different value) */
+    useEffect(() => {
+        console.log('use effect ran');
+        // console.log(blogs);
+        console.log(name)
+    }, [name]);
+
+    /* ----------------------------- */
+
     return (
         <div className="home">
             <h2>Homepage</h2>
@@ -42,8 +73,10 @@ const Home = () => {
             {/* with button event */}
             {/* <button onClick={(e) => handleClickWithValue('yoshi', e)}>Click Me Again</button> */}
 
-            {/* blogs is being pass into "blogs" as props*/}
-            <BlogList blogs={blogs} title="All Blogs!" />
+            {/* blogs is being pass into "blogs" as props and pass into BlogList component */}
+            <BlogList blogs={blogs} title="All Blogs!" handleDelete={handleDelete} />
+            <button onClick={() => setName('luigi')}>Change name</button>
+            <p>{name}</p>
         </div>
     );
 };
