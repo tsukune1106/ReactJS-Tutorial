@@ -9,11 +9,15 @@ const Home = () => {
     const [name, setName] = useState('mario');
     const [age, setAge] = useState(30);
 
-    const [blogs, setBlogs] = useState([
-        { id: 1, title: "My new website", body: 'lorem ipsum...', author: 'mario' },
-        { id: 2, title: "Welcome party!", body: 'lorem ipsum...', author: 'yoshi' },
-        { id: 3, title: "Web dev top tips", body: 'lorem ipsum...', author: 'mario' }
-    ])
+    // const [blogs, setBlogs] = useState([
+    //     { id: 1, title: "My new website", body: 'lorem ipsum...', author: 'mario' },
+    //     { id: 2, title: "Welcome party!", body: 'lorem ipsum...', author: 'yoshi' },
+    //     { id: 3, title: "Web dev top tips", body: 'lorem ipsum...', author: 'mario' }
+    // ]);
+
+    const [blogs, setBlogs] = useState(null);
+    const [isPending, setIsPending] = useState(true);
+    const [error, setError] = useState(null);
 
     const handleClick = (e) => {
         console.log('hello, ninjas', e);
@@ -49,11 +53,32 @@ const Home = () => {
     /* this means that useEffect will only be invoked: */
     /* 1: first time the dom rendered */
     /* 2: state function is invoked if is included into useEffect dependencies (only if the value is changes, such as different value) */
+    // useEffect(() => {
+    //     console.log('use effect ran');
+    //     // console.log(blogs);
+    //     console.log(name)
+    // }, [name]);
+
+    /* using state function to fetch data */
     useEffect(() => {
         console.log('use effect ran');
-        // console.log(blogs);
-        console.log(name)
-    }, [name]);
+        fetch('http://localhost:8000/blogs')
+            .then(res => {
+                if (!res.ok) {
+                    throw Error('Could not fetch the data for that resource');
+                }
+                return res.json();
+            })
+            .then(data => {
+                setBlogs(data);
+                setError(null);
+            })
+            .catch(err => {
+                console.log(err.message);
+                setError(err.message)
+            })
+            .finally(() => setIsPending(false))
+    }, []);
 
     /* ----------------------------- */
 
@@ -73,10 +98,15 @@ const Home = () => {
             {/* with button event */}
             {/* <button onClick={(e) => handleClickWithValue('yoshi', e)}>Click Me Again</button> */}
 
+            {isPending && <div>Loading...</div>}
+            {error && <div>{error}</div>}
+
             {/* blogs is being pass into "blogs" as props and pass into BlogList component */}
-            <BlogList blogs={blogs} title="All Blogs!" handleDelete={handleDelete} />
-            <button onClick={() => setName('luigi')}>Change name</button>
-            <p>{name}</p>
+            {/* <BlogList blogs={blogs} title="All Blogs!" handleDelete={handleDelete} /> */}
+            {blogs && <BlogList blogs={blogs} title="All Blogs!" handleDelete={handleDelete} />}
+
+            {/* <button onClick={() => setName('luigi')}>Change name</button>
+            <p>{name}</p> */}
         </div>
     );
 };
