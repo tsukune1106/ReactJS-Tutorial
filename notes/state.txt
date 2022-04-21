@@ -1,0 +1,62 @@
+Object vs Function:
+
+Object:
+To update a value inside an object, we should use state to update instead of updating directly.
+
+Example:
+
+state = { comment: '' }
+
+this.setState({comment: 'Hello'});
+
+
+Function:
+React may batch multiple setState() calls into a single update for performance.
+Because this.props and this.state may be updated asynchronously, you should not rely on their values for calculating the next state.
+
+Example 1:
+//Wrong
+this.setState({
+  counter: this.state.counter + this.props.increment,
+});
+
+// Correct
+note: can be either arrow or regular function.
+this.setState((state, props) => ({
+  counter: state.counter + props.increment
+}));
+
+Example 2:
+this.state = {isToggleOn: true};
+
+this.setState(prevState => ({ isToggleOn: !prevState.isToggleOn }));
+
+Example 3:
+/*
+    In this example, the state gets update after the for loops runs.
+    However, this.state.count is same for each repeat so even if we expecting to 
+    count increase by 5, its actually increment by 1
+*/
+updateCountByFive = () => {
+  for (let a = 0; a < 5; a++) {
+    this.setState({
+      count: this.state.count + 1
+    });
+  }
+};
+final answer: this.state = { count: 2 }
+
+/*
+    In this case by using callback to set the new state,
+    react is smart enough to pass the latest count value to the callback event even if that new change is not rendered
+*/
+updateCountByFiveCallback = () => {
+  for (let a = 0; a < 5; a++) {
+    this.setState(prevState => {
+      return {
+        count: prevState.count + 1
+      };
+    });
+  }
+};
+final answer: this.state = { count: 5 }

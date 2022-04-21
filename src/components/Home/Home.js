@@ -8,6 +8,7 @@ const Home = () => {
     // [value, function]
     const [name, setName] = useState('mario');
     const [age, setAge] = useState(30);
+    const [status, setStatus] = useState(true)
 
     // const [blogs, setBlogs] = useState([
     //     { id: 1, title: "My new website", body: 'lorem ipsum...', author: 'mario' },
@@ -20,6 +21,7 @@ const Home = () => {
     const [error, setError] = useState(null);
 
     const handleClick = (e) => {
+        console.log('handleClick this:', this)
         console.log('hello, ninjas', e);
         setName('luigi');
         setAge(45);
@@ -27,6 +29,7 @@ const Home = () => {
     }
 
     const handleClickWithValue = (name, e) => {
+        console.log('handleClickWithValue this:', this)
         console.log('hello, ' + name + ', ', e);
     }
 
@@ -80,6 +83,10 @@ const Home = () => {
             .finally(() => setIsPending(false))
     }, []);
 
+    const toggleStatus = () => {
+        // setStatus(!status)
+    }
+
     /* ----------------------------- */
 
     return (
@@ -107,6 +114,9 @@ const Home = () => {
 
             {/* <button onClick={() => setName('luigi')}>Change name</button>
             <p>{name}</p> */}
+
+            {/* <button onClick={toggleStatus}>Toggle Status</button>
+            <p>Status: {status.toString()}</p> */}
         </div>
     );
 };

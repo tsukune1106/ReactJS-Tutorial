@@ -1,0 +1,57 @@
+1. Containment
+Two ways of passing component as children:
+
+i. Components pass arbitrary children (components) to them by nesting JSX:
+function FancyBorder(props) {
+    return (
+        <div className={'FancyBorder FancyBorder-' + props.color}>
+            {props.children}
+        </div>
+    );
+}
+
+function WelcomeDialog() {
+    return (
+        <FancyBorder color="blue">
+            <h1 className="Dialog-title">
+                Welcome
+            </h1>
+            <p className="Dialog-message">
+                Thank you for visiting our spacecraft!
+            </p>
+        </FancyBorder>
+    );
+}
+
+Anything inside the <FancyBorder> JSX tag gets passed into the FancyBorder component as a children prop.
+Since FancyBorder renders {props.children} inside a <div>, the passed elements appear in the final output.
+
+ii. pass children as prop, especially passing multiple children as prop)
+function SplitPane(props) {
+    return (
+        <div className="SplitPane">
+            <div className="SplitPane-left">
+                {props.left}
+            </div>
+            <div className="SplitPane-right">
+                {props.right}
+            </div>
+        </div>
+    );
+}
+
+function App() {
+    return (
+        <SplitPane
+            left={
+                <Contacts />
+            }
+            right={
+                <Chat />
+            }
+        />
+    );
+}
+
+React elements like <Contacts /> and <Chat /> are just objects, so you can pass them as props like any other data.
+This approach may remind you of “slots” in other libraries but there are no limitations on what you can pass as props in React.
