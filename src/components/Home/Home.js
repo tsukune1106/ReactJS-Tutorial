@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 import BlogList from '../BlogList';
+import useFetch from '../useFetch';
+import UseStateWithUseEffect from '../UseState-Async/UseState-With-UseEffect';
+import UseStateWithoutUseEffect from '../UseState-Async/UseState-Without-UseEffect';
 
 const Home = () => {
     // this does not change the value in html due to not reactive
@@ -16,9 +19,12 @@ const Home = () => {
     //     { id: 3, title: "Web dev top tips", body: 'lorem ipsum...', author: 'mario' }
     // ]);
 
-    const [blogs, setBlogs] = useState(null);
-    const [isPending, setIsPending] = useState(true);
-    const [error, setError] = useState(null);
+    // const [blogs, setBlogs] = useState(null);
+    // const [isPending, setIsPending] = useState(true);
+    // const [error, setError] = useState(null);
+
+    // fetch endpoint with custom hook
+    const { data, isPending, error } = useFetch('http://localhost:8000/blogs');
 
     const handleClick = (e) => {
         console.log('handleClick this:', this)
@@ -34,10 +40,10 @@ const Home = () => {
     }
 
     /* passing function as a prop into BlogList component */
-    const handleDelete = (id) => {
-        const newBlogs = blogs.filter(blog => blog.id !== id);
-        setBlogs(newBlogs);
-    }
+    // const handleDelete = (id) => {
+    //     const newBlogs = blogs.filter(blog => blog.id !== id);
+    //     setBlogs(newBlogs);
+    // }
 
     /* this function is invoked each time dom render or state changes that caused dom to render */
     /* is useful when something need to be run every re-render */
@@ -63,25 +69,25 @@ const Home = () => {
     // }, [name]);
 
     /* using state function to fetch data */
-    useEffect(() => {
-        console.log('use effect ran');
-        fetch('http://localhost:8000/blogs')
-            .then(res => {
-                if (!res.ok) {
-                    throw Error('Could not fetch the data for that resource');
-                }
-                return res.json();
-            })
-            .then(data => {
-                setBlogs(data);
-                setError(null);
-            })
-            .catch(err => {
-                console.log(err.message);
-                setError(err.message)
-            })
-            .finally(() => setIsPending(false))
-    }, []);
+    // useEffect(() => {
+    //     console.log('use effect ran');
+    //     fetch('http://localhost:8000/blogs')
+    //         .then(res => {
+    //             if (!res.ok) {
+    //                 throw Error('Could not fetch the data for that resource');
+    //             }
+    //             return res.json();
+    //         })
+    //         .then(data => {
+    //             setBlogs(data);
+    //             setError(null);
+    //         })
+    //         .catch(err => {
+    //             console.log(err.message);
+    //             setError(err.message)
+    //         })
+    //         .finally(() => setIsPending(false))
+    // }, []);
 
     const toggleStatus = () => {
         // setStatus(!status)
@@ -110,13 +116,18 @@ const Home = () => {
 
             {/* blogs is being pass into "blogs" as props and pass into BlogList component */}
             {/* <BlogList blogs={blogs} title="All Blogs!" handleDelete={handleDelete} /> */}
-            {blogs && <BlogList blogs={blogs} title="All Blogs!" handleDelete={handleDelete} />}
+            {/* {blogs && <BlogList blogs={blogs} title="All Blogs!" handleDelete={handleDelete} />} */}
+            {data && <BlogList blogs={data} title="All Blogs!"/>}
 
             {/* <button onClick={() => setName('luigi')}>Change name</button>
             <p>{name}</p> */}
 
             {/* <button onClick={toggleStatus}>Toggle Status</button>
             <p>Status: {status.toString()}</p> */}
+
+            {/* Difference of useState with and without useEffect -> async
+            <UseStateWithoutUseEffect />
+            <UseStateWithUseEffect /> */}
         </div>
     );
 };
