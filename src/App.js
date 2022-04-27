@@ -1,8 +1,9 @@
 import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './components/Home/Home';
 import Navbar from './components/Navbar';
 import Create from './components/Create';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import BlogDetails from './components/Blog/BlogDetails';
 
 function App() {
   // const title = 'Welcome to the new blog';
@@ -30,6 +31,12 @@ function App() {
             <Route path="/create">
               <Create />
             </Route>
+
+            {/* Route Parameters */}
+            <Route path="/blogs/:id">
+              <BlogDetails />
+            </Route>
+
           </Switch>
           {/* <h1>{title}</h1>
           <p>Like {likes} times</p>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import BlogList from '../BlogList';
+import BlogList from '../Blog/BlogList';
 import useFetch from '../useFetch';
 import UseStateWithUseEffect from '../UseState-Async/UseState-With-UseEffect';
 import UseStateWithoutUseEffect from '../UseState-Async/UseState-Without-UseEffect';
