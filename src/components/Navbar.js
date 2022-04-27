@@ -5,13 +5,6 @@ const Navbar = () => {
             <div className="links">
                 <a href="/">Home</a>
                 <a href="/create">New Blog</a>
-
-                {/* dynamic style */}
-                {/* <a href="/create" sytle={{
-                    color: 'white',
-                    backgroundColor: '#f1356d',
-                    borderRadius: '8px'
-                }}>New Blog</a> */}
             </div>
         </nav>
     );
