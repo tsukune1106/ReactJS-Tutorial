@@ -8,7 +8,7 @@ const Navbar = () => {
                 {/* <a href="/">Home</a>
                 <a href="/create">New Blog</a> */}
 
-                {/* Link is used to prevent the webpage to refresh or prevent fresh request */}
+                {/* Link is used to prevent the webpage to refresh or prevent fresh request when is redirecting to another page */}
                 <Link to="/">Home</Link>
                 <Link to="/create">New Blog</Link>
 
