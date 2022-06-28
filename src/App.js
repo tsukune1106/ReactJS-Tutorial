@@ -22,9 +22,9 @@ function App() {
           Navbar will be remained due to outside of Switch tag
           Only components inside the Switch tag will be invoked */}
           <Switch>
-            {/* Without exact property in Route tag, the route will check whether the path is included in any of the path
+            {/* Without "exact" property in Route tag, the route will check whether the path is included in any of the path
             E.g. when the path is "/create", it will still redirect to Home page because "/" exists in "/create".
-            That's why we add exact property to make sure it matches full path */}
+            That's why we add "exact" property to make sure it matches full path */}
             <Route exact path="/">
               <Home />
             </Route>
