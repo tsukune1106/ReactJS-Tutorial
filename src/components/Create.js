@@ -5,10 +5,18 @@ const Create = () => {
     const [body, setBody] = useState('');
     const [author, setAuthor] = useState('mario');
 
+    const handleSubmit = (e) => {
+        // to prevent page refreshed after submit
+        e.preventDefault();
+
+        const blog = { title, body, author };
+        console.log(blog);
+    }
+
     return (
         <div className="create">
             <h2>Add a new blog</h2>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <label>Blog title:</label>
                 {/* without onChange, the value is unable to change */}
                 <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)}></input>
@@ -23,10 +31,6 @@ const Create = () => {
                 </select>
 
                 <button>Add Blog</button>
-
-                <p>{title}</p>
-                <p>{body}</p>
-                <p>{author}</p>
             </form>
         </div>
     );
