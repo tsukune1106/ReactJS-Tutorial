@@ -4,6 +4,7 @@ import Home from './components/Home/Home';
 import Navbar from './components/Navbar';
 import Create from './components/Create';
 import BlogDetails from './components/Blog/BlogDetails';
+import NotFound from './components/NotFound';
 
 function App() {
   // const title = 'Welcome to the new blog';
@@ -37,6 +38,11 @@ function App() {
               <BlogDetails />
             </Route>
 
+            {/* path '*' must be at the bottom, otherwise it will match any routes */}
+            {/* it will return if none of the routes stated above matches the current route */}
+            <Route path="*">
+              <NotFound />
+            </Route>
           </Switch>
           {/* <h1>{title}</h1>
           <p>Like {likes} times</p>
